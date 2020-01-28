@@ -13,14 +13,17 @@ namespace Data.Repository
     {
         protected readonly MyContext _context;
         protected DbSet<T> _dataset;
-        public BaseRepository()
+        
+
+        public BaseRepository(MyContext context)
         {
             _context = new MyContext();
             _dataset = _context.Set<T>();
 
         }
+
        
-      
+
         public async Task<bool> DeleteAsync(Guid id)
         {
             try
