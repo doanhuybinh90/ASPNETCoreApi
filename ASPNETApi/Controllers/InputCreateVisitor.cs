@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace ASPNETApi.Controllers
 {
-    public class Visitor : Entity
+    public class InputCreateVisitor
     {
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string Cpf { get; set; }
-        public List<Booking> Bookings { get; set; }
     }
 }

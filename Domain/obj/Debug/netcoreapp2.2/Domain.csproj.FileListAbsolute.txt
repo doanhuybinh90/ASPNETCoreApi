@@ -12,3 +12,4 @@ C:\Users\LarissaRN\Desktop\API\ASPNETCoreApi\ASPNETApi\Domain\obj\Debug\netcorea
 C:\Users\LarissaRN\Desktop\API\ASPNETCoreApi\ASPNETApi\Domain\obj\Debug\netcoreapp2.2\Domain.AssemblyInfo.cs
 C:\Users\LarissaRN\Desktop\API\ASPNETCoreApi\ASPNETApi\Domain\obj\Debug\netcoreapp2.2\Domain.dll
 C:\Users\LarissaRN\Desktop\API\ASPNETCoreApi\ASPNETApi\Domain\obj\Debug\netcoreapp2.2\Domain.pdb
+C:\Users\LarissaRN\Desktop\API\ASPNETCoreApi\ASPNETApi\Domain\obj\Debug\netcoreapp2.2\Domain.csprojAssemblyReference.cache

@@ -1,4 +1,6 @@
-﻿using Domain.Interfaces.Services.Administrators;
+﻿using Domain.Interfaces;
+using Domain.Interfaces.Services;
+using Domain.Interfaces.Services.Administrators;
 using Domain.Interfaces.Services.Bookings;
 using Domain.Interfaces.Services.VIsitors;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,9 @@ namespace CrossCutting.DependencyInjection
             serviceCollection.AddTransient<IVisitorService, VisitorService>();
             serviceCollection.AddTransient<IAdministratorService, AdministratorService>();
             serviceCollection.AddTransient<IBookingService, BookingService>();
+            serviceCollection.AddTransient<IVisitorLoginService, VisitorLoginService>();
+            serviceCollection.AddTransient<IAdministratorLoginService, AdministratorLoginService>();
+
         }
     }
 }

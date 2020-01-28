@@ -11,6 +11,9 @@ namespace Data.Repository
 {
     public class BookingRepository : BaseRepository<Booking>, IBookingRepository
     {
+        public BookingRepository(MyContext context) : base(context)
+        {
+        }
 
         public override async Task<Booking> SelectAsync(Guid id)
         {
@@ -35,6 +38,7 @@ namespace Data.Repository
                 item.CreateAt = DateTime.UtcNow;
 
                 _context.Administrators.Attach(item.Administrator);
+                _context.Visitors.Attach(item.Visitor);
                 _dataset.Add(item);
 
                 await _context.SaveChangesAsync();

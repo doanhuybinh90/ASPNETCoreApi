@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Interfaces.Services.Administrators;
 using Domain.Interfaces.Services.Bookings;
+using Domain.Interfaces.Services.VIsitors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +18,13 @@ namespace ASPNETApi.Controllers
     {
         private IBookingService _service;
         private IAdministratorService _serviceadmin;
+        private IVisitorService _servicevisitor;
 
-        public BookingsController(IBookingService service, IAdministratorService serviceadmin)
+        public BookingsController(IBookingService service, IAdministratorService serviceadmin, IVisitorService servicevisitor)
         {
             _service = service;
             _serviceadmin = serviceadmin;
+            _servicevisitor = servicevisitor;
         }
 
         [HttpGet]
@@ -74,7 +77,7 @@ namespace ASPNETApi.Controllers
                 Description = createBooking.Description,
                 Price = createBooking.Price,
                 Administrator = await _serviceadmin.Get(createBooking.AdminId),
-                Visitor = null
+                Visitor = await _servicevisitor.Get(createBooking.VisitorId)
                 
             };
                 var result = await _service.Post(booking);

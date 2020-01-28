@@ -59,7 +59,7 @@ namespace ASPNETApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Visitor visitor)
+        public async Task<ActionResult> Post([FromBody] InputCreateVisitor createVisitor)
         {
             if (!ModelState.IsValid)
             {
@@ -67,6 +67,15 @@ namespace ASPNETApi.Controllers
             }
             try
             {
+                var visitor = new Visitor
+                {
+                    Id = Guid.NewGuid(),
+                    Name = createVisitor.Name,
+                    Email = createVisitor.Email,
+                    Cpf = createVisitor.Cpf,
+                    Password = createVisitor.Password,
+                    Bookings = new List<Booking>()
+                };
                 var result = await _service.Post(visitor);
                 if (result != null)
                 {

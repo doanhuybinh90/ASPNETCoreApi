@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    class VisitorLoginService : IVisitorLoginService
+    public class VisitorLoginService : IVisitorLoginService
     {
         private IVisitorRepository _repository;
 
@@ -19,16 +19,16 @@ namespace Services.Services
 
         public async Task<object> FindByLogin(Visitor visitor)
         {
-            if(visitor != null && !string.IsNullOrWhiteSpace(visitor.Email))
+            if (visitor != null && !string.IsNullOrWhiteSpace(visitor.Email))
             {
-               return await _repository.FindByLogin(visitor.Email);
-                
+                return await _repository.FindByLogin(visitor.Email);
+
             }
             else
             {
                 return null;
             }
-            
+
         }
     }
 }
