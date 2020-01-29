@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Data.Context;
 using Domain.Entities;
 using Domain.Interfaces.Services.VIsitors;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,7 @@ namespace ASPNETApi.Controllers
             _service = service;
         }
 
-
+        [Authorize("Bearer")]
         [HttpGet]
         public async Task<ActionResult> GetAll([FromServices] IVisitorService service)
         {
@@ -39,7 +40,7 @@ namespace ASPNETApi.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpGet]
         [Route("{id}", Name ="GetWithID")]
         public async Task<ActionResult> Get(Guid id)
@@ -57,7 +58,7 @@ namespace ASPNETApi.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] InputCreateVisitor createVisitor)
         {
@@ -91,7 +92,7 @@ namespace ASPNETApi.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpPut]
         public async Task<ActionResult> Put([FromBody]Visitor visitor)
         {
@@ -116,7 +117,7 @@ namespace ASPNETApi.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpDelete ("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {

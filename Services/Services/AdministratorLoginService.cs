@@ -59,12 +59,16 @@ namespace Services.Services
 
                     var handler = new JwtSecurityTokenHandler();
                     string token = CreateToken(identity, createDate, expirationDate, handler);
-                    return SuccessObject(createDate, expirationDate, token, administrator);
+                    return SuccessObject(createDate, expirationDate, token, baseUser);
                 }
             }
             else
             {
-                return null;
+                return new
+                {
+                    authenticated = false,
+                    message = "Authentication failed"
+                };
             }
         }
         private string CreateToken(ClaimsIdentity identity, DateTime createDate, DateTime expirationDate, JwtSecurityTokenHandler handler)

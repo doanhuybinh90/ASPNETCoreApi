@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Interfaces.Services.Administrators;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,7 @@ namespace ASPNETApi.Controllers
         {
             _service = service;
         }
-
+        [Authorize("Bearer")]
         [HttpGet]
         public async Task<ActionResult> GetAll([FromServices] IAdministratorService service)
         {
@@ -37,7 +38,7 @@ namespace ASPNETApi.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpGet]
         [Route("{id}", Name = "GetID")]
         public async Task<ActionResult> Get(Guid id)
@@ -55,7 +56,7 @@ namespace ASPNETApi.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] InputCreateAdmin admin)
         {
@@ -89,7 +90,7 @@ namespace ASPNETApi.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpPut]
         public async Task<ActionResult> Put([FromBody] Administrator administrator)
         {
@@ -115,7 +116,7 @@ namespace ASPNETApi.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {
