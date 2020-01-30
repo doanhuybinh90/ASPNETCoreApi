@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ASPNETApi.Controllers.DTOs;
 using Domain.Entities;
 using Domain.Interfaces.Services.Administrators;
 using Microsoft.AspNetCore.Authorization;
@@ -66,7 +67,7 @@ namespace ASPNETApi.Controllers
             }
             try
             {
-                var administrator = new Administrator
+                var administrator = new Administrator()
                 {
                     Id = Guid.NewGuid(),
                     Name = admin.Name,
@@ -92,7 +93,7 @@ namespace ASPNETApi.Controllers
         }
         [Authorize("Bearer")]
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] Administrator administrator)
+        public async Task<ActionResult> Put([FromBody] InputUpdateAdmin admin)
         {
             if (!ModelState.IsValid)
             {
@@ -100,7 +101,13 @@ namespace ASPNETApi.Controllers
             }
             try
             {
+                var administrator = await _service.Get(admin.Id);
+                administrator.Name = admin.Name;
+                administrator.Email = admin.Email;
+                administrator.Password = admin.Password;
+                administrator.Cnpj = admin.Cnpj;
                 
+
                 var result = await _service.Put(administrator);
                 if (result != null)
                 {
@@ -128,7 +135,7 @@ namespace ASPNETApi.Controllers
             {
                 return Ok(await _service.Delete(id));
             }
-            catch(ArgumentException e)
+            catch (ArgumentException e)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }

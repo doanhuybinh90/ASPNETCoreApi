@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ASPNETApi.Controllers.DTOs;
 using Data.Context;
 using Domain.Entities;
 using Domain.Interfaces.Services.VIsitors;
@@ -94,7 +95,7 @@ namespace ASPNETApi.Controllers
         }
         [Authorize("Bearer")]
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody]Visitor visitor)
+        public async Task<ActionResult> Put([FromBody]InputUpdateVisitor updateVisitor)
         {
             if (!ModelState.IsValid)
             {
@@ -102,6 +103,12 @@ namespace ASPNETApi.Controllers
             }
             try
             {
+                var visitor = await _service.Get(updateVisitor.Id);
+                visitor.Name = updateVisitor.Name;
+                visitor.Email = updateVisitor.Email;
+                visitor.Password = updateVisitor.Password;
+                visitor.Cpf = updateVisitor.Cpf;
+
                 var result = await _service.Put(visitor);
                 if(result != null)
                 {
