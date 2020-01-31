@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using ASPNETApi.Controllers.DTOs;
-using Data.Context;
 using Domain.DTOs.Visitor;
 using Domain.Entities;
 using Domain.Interfaces.Services.VIsitors;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNETApi.Controllers

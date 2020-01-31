@@ -11,5 +11,6 @@ namespace Domain.DTOs.Visitor
         public string Email { get; set; }
         public string Password { get; set; }
         public string Cpf { get; set; }
+        public DateTime UpdateAt { get; set; }
     }
 }
