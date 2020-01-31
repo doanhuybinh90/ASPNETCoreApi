@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using ASPNETApi.Controllers.DTOs;
 using Data.Context;
+using Domain.DTOs.Visitor;
 using Domain.Entities;
 using Domain.Interfaces.Services.VIsitors;
 using Microsoft.AspNetCore.Authorization;

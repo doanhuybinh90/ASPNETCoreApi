@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace ASPNETApi.Controllers.DTOs
+namespace Domain.DTOs.Administrator
 {
     public class InputUpdateAdmin
     {
-        public  Guid Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using ASPNETApi.Controllers.DTOs;
+using Domain.DTOs.Administrator;
 using Domain.Entities;
 using Domain.Interfaces.Services.Administrators;
 using Microsoft.AspNetCore.Authorization;

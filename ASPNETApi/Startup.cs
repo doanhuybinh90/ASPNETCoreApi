@@ -72,7 +72,11 @@ namespace ASPNETApi
             });
 
 
-            services.AddMvc(options => { options.EnableEndpointRouting = false; });
+            //services.AddMvc(options => { options.EnableEndpointRouting = false; });
+
+            services.AddControllers()
+                .AddNewtonsoftJson();
+            
 
             services.AddSwaggerGen(c =>
             {
@@ -83,7 +87,7 @@ namespace ASPNETApi
                     {
                         Title = "Bookings API",
                         Version = "v1",
-                        Description = "API REST using ASPNETCore 2.2",
+                        Description = "API REST using ASPNETCore 3.0",
 
                         Contact = new OpenApiContact
                         {
@@ -110,6 +114,8 @@ namespace ASPNETApi
 
             });
 
+            
+
 
         }
 
@@ -131,15 +137,22 @@ namespace ASPNETApi
             {
                 c.RoutePrefix = string.Empty;
                 c.SwaggerEndpoint("/swagger/v1/swagger.json",
-                    "Project AspNetCore 2.2");
+                    "Project AspNetCore 3.0");
             });
 
             var option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");
             app.UseRewriter(option);
 
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+
             //app.UseHttpsRedirection();
-            app.UseMvc();
+            //app.UseMvc();
         }
     }
 }
