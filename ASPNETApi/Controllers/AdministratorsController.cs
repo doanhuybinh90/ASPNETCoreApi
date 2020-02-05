@@ -57,7 +57,7 @@ namespace ASPNETApi.Controllers
         }
         [Authorize("Bearer")]
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] InputCreateAdmin admin)
+        public async Task<ActionResult> Post([FromBody] AdminDtoPost administrator)
         {
             if (!ModelState.IsValid)
             {
@@ -65,15 +65,7 @@ namespace ASPNETApi.Controllers
             }
             try
             {
-                var administrator = new Administrator()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = admin.Name,
-                    Email = admin.Email,
-                    Cnpj = admin.Cnpj,
-                    Password = admin.Password,
-                    Bookings = new List<Booking>()
-                };
+                
                 var result = await _service.Post(administrator);
                 if (result != null)
                 {
@@ -91,21 +83,14 @@ namespace ASPNETApi.Controllers
         }
         [Authorize("Bearer")]
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] InputUpdateAdmin admin)
+        public async Task<ActionResult> Put([FromBody] AdminDtoPut administrator)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             try
-            {
-                var administrator = await _service.Get(admin.Id);
-                administrator.Name = admin.Name;
-                administrator.Email = admin.Email;
-                administrator.Password = admin.Password;
-                administrator.Cnpj = admin.Cnpj;
-                
-
+            { 
                 var result = await _service.Put(administrator);
                 if (result != null)
                 {

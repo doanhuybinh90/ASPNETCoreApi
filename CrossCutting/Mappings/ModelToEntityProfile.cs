@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.DTOs.Bookings;
 using Domain.Entities;
 using Domain.Models;
 using System;
@@ -14,6 +15,7 @@ namespace CrossCutting.Mappings
             CreateMap<Visitor, VisitorModel>().ReverseMap();
             CreateMap<Administrator, AdministratorModel>().ReverseMap();
             CreateMap<Booking, BookingModel>().ReverseMap();
+            
         }
     }
 }

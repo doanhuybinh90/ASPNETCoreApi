@@ -1,6 +1,9 @@
-﻿using Domain.Entities;
+﻿using AutoMapper;
+using Domain.DTOs.Administrator;
+using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Interfaces.Services.Administrators;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,34 +14,48 @@ namespace Services.Services
     public class AdministratorService : IAdministratorService
     {
         private IRepository<Administrator> _repository;
+        private readonly IMapper _mapper;
 
-        public AdministratorService(IRepository<Administrator> repository)
+        public AdministratorService(IRepository<Administrator> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         public async Task<bool> Delete(Guid id)
         {
             return await _repository.DeleteAsync(id);
         }
 
-        public async Task<Administrator> Get(Guid id)
+        public async Task<AdministratorDtoGet> Get(Guid id)
         {
-            return await _repository.SelectAsync(id);
+            var entity = await _repository.SelectAsync(id);
+            return _mapper.Map<AdministratorDtoGet>(entity);
         }
 
-        public async Task<IEnumerable<Administrator>> GetAll()
+        public async Task<IEnumerable<AdministratorDtoGet>> GetAll()
         {
-            return await _repository.SelectAsync();
+            var listEntity = await _repository.SelectAsync();
+            return _mapper.Map<IEnumerable<AdministratorDtoGet>>(listEntity);
         }
 
-        public async Task<Administrator> Post(Administrator administrator)
+        public async Task<InputCreateAdmin> Post(AdminDtoPost admin)
         {
-            return await _repository.InsertAsync(administrator);
+            var model = _mapper.Map<AdministratorModel>(admin);
+            var entity = _mapper.Map<Administrator>(model);
+            var result = await _repository.InsertAsync(entity);
+
+            return _mapper.Map<InputCreateAdmin>(result);
         }
 
-        public async Task<Administrator> Put(Administrator administrator)
+        public async Task<InputUpdateAdmin> Put(AdminDtoPut admin)
         {
-            return await _repository.UpdateAsync(administrator);
+            var model = _mapper.Map<AdministratorModel>(admin);
+            var entity = _mapper.Map<Administrator>(model);
+            var result = await _repository.UpdateAsync(entity);
+
+            return _mapper.Map<InputUpdateAdmin>(result);
         }
+
+        
     }
 }

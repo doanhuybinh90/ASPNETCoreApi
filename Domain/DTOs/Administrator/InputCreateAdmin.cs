@@ -7,6 +7,7 @@ namespace Domain.DTOs.Administrator
 {
     public class InputCreateAdmin
     {
+        public Guid Id { get; set; }
         [Required(ErrorMessage = "Name is Required")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Email is Required")]
@@ -16,5 +17,6 @@ namespace Domain.DTOs.Administrator
         public string Password { get; set; }
         [Required(ErrorMessage = "CNPJ is Required")]
         public string Cnpj { get; set; }
+        public DateTime CreateAt { get; set; }
     }
 }

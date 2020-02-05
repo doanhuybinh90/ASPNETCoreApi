@@ -65,23 +65,17 @@ namespace ASPNETApi.Controllers
         }
         [Authorize("Bearer")]
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] InputCreateBooking createBooking)
+        public async Task<ActionResult> Post([FromBody] BookingDtoPost booking)
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             try
-            { var booking = new Booking
+            
             {
-                Id = Guid.NewGuid(),
-                Name = createBooking.Name,
-                Description = createBooking.Description,
-                Price = createBooking.Price,
-                Administrator = await _serviceadmin.Get(createBooking.AdminId),
-                Visitor = await _servicevisitor.Get(createBooking.VisitorId)
-                
-            };
+               
                 var result = await _service.Post(booking);
                 if(result != null)
                 {
@@ -99,7 +93,7 @@ namespace ASPNETApi.Controllers
         }
         [Authorize("Bearer")]
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] Booking booking)
+        public async Task<ActionResult> Put([FromBody] BookingDtoPut booking)
         {
             if (!ModelState.IsValid)
             {

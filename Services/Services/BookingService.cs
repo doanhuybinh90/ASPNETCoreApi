@@ -1,6 +1,11 @@
-﻿using Domain.Entities;
+﻿using AutoMapper;
+using Domain.DTOs.Administrator;
+using Domain.DTOs.Bookings;
+using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Interfaces.Services.Bookings;
+using Domain.Models;
+using Domain.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,11 +16,17 @@ namespace Services.Services
     public class BookingService : IBookingService
     {
         private IBookingRepository _repository;
+        private readonly IMapper _mapper;
+        private IAdministratorRepository _repositoryAdmin;
+        private IVisitorRepository _visitorRepository;
         
 
-        public BookingService(IBookingRepository repository)
+        public BookingService(IBookingRepository repository, IMapper mapper, IAdministratorRepository repositoryAdmin, IVisitorRepository visitorRepository)
         {
             _repository = repository;
+            _mapper = mapper;
+            _repositoryAdmin = repositoryAdmin;
+            _visitorRepository = visitorRepository;
         }
 
         public async Task<bool> Delete(Guid id)
@@ -23,24 +34,42 @@ namespace Services.Services
             return await _repository.DeleteAsync(id);
         }
 
-        public async Task<Booking> Get(Guid id)
+        public async Task<BookingDtoGet> Get(Guid id)
         {
-            return await _repository.SelectAsync(id);
+            var entity = await _repository.SelectAsync(id);
+            return _mapper.Map<BookingDtoGet>(entity);
         }
 
-        public async Task<IEnumerable<Booking>> GetAll()
+        public async Task<IEnumerable<BookingDtoGet>> GetAll()
         {
-            return await _repository.SelectAsync();
+            var listEntity = await _repository.SelectAsync();
+            return _mapper.Map<IEnumerable<BookingDtoGet>>(listEntity);
         }
 
-        public async Task<Booking> Post(Booking booking)
+        public async Task<InputCreateBooking> Post(BookingDtoPost booking)
         {
-            return await _repository.InsertAsync(booking);
+            var visitor = await _visitorRepository.SelectAsync(booking.VisitorId);
+            var administrator = await _repositoryAdmin.SelectAsync(booking.AdminId);
+            var model = _mapper.Map<BookingModel>(booking);
+            var entity = _mapper.Map<Booking>(model);
+            entity.Administrator = administrator;
+            entity.Visitor = visitor;
+            var result = await _repository.InsertAsync(entity);
+
+            var teste = _mapper.Map<InputCreateBooking>(result);
+
+            return teste;
         }
 
-        public async Task<Booking> Put(Booking booking)
+        public async Task<InputUpdateBooking> Put(BookingDtoPut booking)
         {
-            return await _repository.UpdateAsync(booking);
+           
+            var model = _mapper.Map<BookingModel>(booking);
+            var entity = _mapper.Map<Booking>(model);
+            var result = await _repository.UpdateAsync(entity);
+            
+
+            return _mapper.Map<InputUpdateBooking>(result);
         }
     }
 }

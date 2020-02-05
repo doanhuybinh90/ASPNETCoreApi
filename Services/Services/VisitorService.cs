@@ -1,6 +1,9 @@
-﻿using Domain.Entities;
+﻿using AutoMapper;
+using Domain.DTOs.Visitor;
+using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Interfaces.Services.VIsitors;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,10 +14,12 @@ namespace Services.Services
     public class VisitorService : IVisitorService
     {
         private IRepository<Visitor> _repository;
+        private readonly IMapper _mapper;
 
-        public VisitorService(IRepository<Visitor> repository)
+        public VisitorService(IRepository<Visitor> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task<bool> Delete(Guid id)
@@ -22,25 +27,37 @@ namespace Services.Services
             return await _repository.DeleteAsync(id);
         }
 
-        public async Task<Visitor> Get(Guid id)
+        public async Task<VisitorDtoGet> Get(Guid id)
         {
-            return await _repository.SelectAsync(id);
+            var entity = await _repository.SelectAsync(id);
+            return _mapper.Map<VisitorDtoGet>(entity);
         }
 
-        public async Task<IEnumerable<Visitor>> GetAll()
+        public async Task<IEnumerable<VisitorDtoGet>> GetAll()
         {
             
-            return await _repository.SelectAsync();
+            var listEntity =  await _repository.SelectAsync();
+            return _mapper.Map<IEnumerable<VisitorDtoGet>>(listEntity);
         }
 
-        public async Task<Visitor> Post(Visitor visitor)
+        public async Task<InputCreateVisitor> Post(VisitorDtoPost visitor)
         {
-            return await _repository.InsertAsync(visitor);
+            var model = _mapper.Map<VisitorModel>(visitor);
+            var entity = _mapper.Map<Visitor>(model);
+            var result = await _repository.InsertAsync(entity);
+
+            return _mapper.Map<InputCreateVisitor>(result);
         }
 
-        public async Task<Visitor> Put(Visitor visitor)
+        public async Task<InputUpdateVisitor> Put(VisitorDtoPut visitor)
         {
-            return await _repository.UpdateAsync(visitor);
+            var model = _mapper.Map<VisitorModel>(visitor);
+            var entity = _mapper.Map<Visitor>(model);
+            var result = await _repository.UpdateAsync(entity);
+
+            return _mapper.Map<InputUpdateVisitor>(result);
         }
+
+        
     }
 }

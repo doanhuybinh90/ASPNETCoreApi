@@ -58,7 +58,7 @@ namespace ASPNETApi.Controllers
         }
         [Authorize("Bearer")]
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] InputCreateVisitor createVisitor)
+        public async Task<ActionResult> Post([FromBody] VisitorDtoPost visitor)
         {
             if (!ModelState.IsValid)
             {
@@ -66,15 +66,6 @@ namespace ASPNETApi.Controllers
             }
             try
             {
-                var visitor = new Visitor
-                {
-                    Id = Guid.NewGuid(),
-                    Name = createVisitor.Name,
-                    Email = createVisitor.Email,
-                    Cpf = createVisitor.Cpf,
-                    Password = createVisitor.Password,
-                    Bookings = new List<Booking>()
-                };
                 var result = await _service.Post(visitor);
                 if (result != null)
                 {
@@ -92,7 +83,7 @@ namespace ASPNETApi.Controllers
         }
         [Authorize("Bearer")]
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody]InputUpdateVisitor updateVisitor)
+        public async Task<ActionResult> Put([FromBody]VisitorDtoPut visitor)
         {
             if (!ModelState.IsValid)
             {
@@ -100,12 +91,7 @@ namespace ASPNETApi.Controllers
             }
             try
             {
-                var visitor = await _service.Get(updateVisitor.Id);
-                visitor.Name = updateVisitor.Name;
-                visitor.Email = updateVisitor.Email;
-                visitor.Password = updateVisitor.Password;
-                visitor.Cpf = updateVisitor.Cpf;
-
+               
                 var result = await _service.Put(visitor);
                 if(result != null)
                 {

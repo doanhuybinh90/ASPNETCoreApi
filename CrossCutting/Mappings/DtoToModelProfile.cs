@@ -13,13 +13,15 @@ namespace CrossCutting.Mappings
     {
         public DtoToModelProfile()
         {
-            CreateMap<VisitorModel, InputCreateVisitor>().ReverseMap();
-            CreateMap<VisitorModel, InputLoginVisitor>().ReverseMap();
-            CreateMap<VisitorModel, InputUpdateVisitor>().ReverseMap();
-            CreateMap<AdministratorModel, InputCreateAdmin>().ReverseMap();
-            CreateMap<AdministratorModel, InputLoginAdmin>().ReverseMap();
-            CreateMap<AdministratorModel, InputUpdateAdmin>().ReverseMap();
-            CreateMap<BookingModel, InputCreateBooking>().ReverseMap();
+            CreateMap<VisitorModel, VisitorDtoGet>().ReverseMap();
+            CreateMap<VisitorModel, VisitorDtoPost>().ReverseMap();
+            CreateMap<VisitorModel, VisitorDtoPut>().ReverseMap();
+            CreateMap<AdministratorModel, AdministratorDtoGet>().ReverseMap();
+            CreateMap<AdministratorModel, AdminDtoPost>().ReverseMap();
+            CreateMap<AdministratorModel, AdminDtoPut>().ReverseMap();
+            CreateMap<BookingModel, BookingDtoGet>().ReverseMap();
+            CreateMap<BookingModel, BookingDtoPost>().ReverseMap();
+            CreateMap<BookingModel, BookingDtoPut>().ReverseMap();
         }
     }
 }

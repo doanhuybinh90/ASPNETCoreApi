@@ -7,6 +7,7 @@ namespace Domain.DTOs.Visitor
 {
     public class InputCreateVisitor
     {
+        public Guid Id;
         [Required(ErrorMessage = "Name is Required")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Email is Required")]

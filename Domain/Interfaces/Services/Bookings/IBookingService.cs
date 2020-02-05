@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.DTOs.Bookings;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +9,10 @@ namespace Domain.Interfaces.Services.Bookings
 {
     public interface IBookingService
     {
-        Task<Booking> Get(Guid id);
-        Task<IEnumerable<Booking>> GetAll();
-        Task<Booking> Post(Booking booking);
-        Task<Booking> Put(Booking booking);
+        Task<BookingDtoGet> Get(Guid id);
+        Task<IEnumerable<BookingDtoGet>> GetAll();
+        Task<InputCreateBooking> Post(BookingDtoPost booking);
+        Task<InputUpdateBooking> Put(BookingDtoPut booking);
         Task<bool> Delete(Guid id);
     }
 }

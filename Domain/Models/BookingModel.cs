@@ -1,4 +1,7 @@
-﻿using Domain.Entities;
+﻿using Domain.DTOs.Administrator;
+using Domain.DTOs.Bookings;
+using Domain.DTOs.Visitor;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +10,14 @@ namespace Domain.Models
 {
     public class BookingModel
     {
+		private Guid _id;
+
+		public Guid Id
+		{
+			get { return _id; }
+			set { _id = value; }
+		}
+
 		private string _name;
 
 		public string Name
@@ -63,7 +74,7 @@ namespace Domain.Models
 		public DateTime UpdateAt
 		{
 			get { return _updateAt; }
-			set { _updateAt = value; }
+			set { _updateAt = value == null ? DateTime.UtcNow : value; }
 		}
 
 

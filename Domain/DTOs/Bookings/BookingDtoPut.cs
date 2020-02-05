@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Domain.DTOs.Bookings
 {
-    public class InputCreateBooking
+    public class BookingDtoPut
     {
-        public Guid Id;
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        [Required(ErrorMessage = "Price is Required")]
         public decimal Price { get; set; }
-        /*public Entities.Administrator Administrator { get; set; }
-        public Entities.Visitor Visitor { get; set; }*/
-        public DateTime CreateAt { get; set; }
+        
+
     }
 }

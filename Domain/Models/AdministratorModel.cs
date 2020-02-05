@@ -30,6 +30,15 @@ namespace Domain.Models
 			set { _email = value; }
 		}
 
+		private string _password;
+
+		public string Password
+		{
+			get { return _password; }
+			set { _password = value; }
+		}
+
+
 		private string _cnpj;
 
 		public string Cnpj
@@ -54,7 +63,7 @@ namespace Domain.Models
 		public DateTime UpdateAt
 		{
 			get { return _updateAt; }
-			set { _updateAt = value; }
+			set { _updateAt = value == null ? DateTime.UtcNow : value; }
 		}
 
 	}
